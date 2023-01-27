@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/2022-05-05-Texture-Classification-Crossmodal
 excerpt: ''
 date: 2022-05-05
-venue: 'Conference'
+venue: 'IEEE Haptics Symposium (HAPTICS)'
 paperurl: 'https://ieeexplore.ieee.org/abstract/document/9765614'
 citation: 'Y. Liu, S. Lu and H. Culbertson, "Texture Classification by Audio-Tactile Crossmodal Congruence," 2022 IEEE Haptics Symposium (HAPTICS), Santa Barbara, CA, USA, 2022, pp. 1-7, doi: 10.1109/HAPTICS52432.2022.9765614.'
 ---
