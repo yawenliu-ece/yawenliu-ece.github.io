@@ -9,14 +9,14 @@ redirect_from:
 
 {% include base_path %}
 
-## Education
-
+Education
+------ 
 * B.S. in Electrical Engineering, University of Southern California, 2022
 * B.S. in Applied and Computational Mathematics, University of Southern California, 2022
 * PhD student in Electrical and Computer Engineering, Carnegie Mellon University, 2027 (expected)
 
-## Experience
-
+Experience
+------ 
 ### Department of Electrical and Computer Engiasmneering, USC Los Angeles, CA
 :   Researcher, under the supervision of Prof. Bhaskar Krishnamachari Aug. 2021–May 2022
 * Undertake a two-semester research project on a localization system with single channel with omnidirectional microphones utilizing 3D printed stencils, as part of my undergraduate thesis. 
@@ -30,7 +30,7 @@ redirect_from:
 * Participate in a research project on haptic interactions and related applications in VR.
 * Develop quantitative algorithms to analyze correlation of sound and vibration signals captured from acceleration sensors and microphones in tool-surface interactions.
 
-## Skills
-
+Skills
+------ 
 ### Technical Skills: 
 Programming in C++, MATLAB, Java, Python, Assembly Language, Verilog, Cadence, Modelsim and Elementary Proficiency in C and R, HFSS, LTSpice
