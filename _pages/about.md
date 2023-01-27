@@ -23,5 +23,5 @@ Address
 ------
 [Carnegie Mellon University](https://www.cmu.edu/)
 <address>
-Robert Mehrabian Collaborative Innovation Center (CIC)<br />4720 Forbes Avenue, Pittsburgh PA 15213
+Robert Mehrabian Collaborative Innovation Center (CIC)<br />4720 Forbes Avenue, Pittsburgh PA 15213<br />
 </address>
