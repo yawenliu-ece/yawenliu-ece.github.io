@@ -34,4 +34,5 @@ Experience
 Skills
 ------ 
 ### Technical Skills: 
-Programming in C++, MATLAB, Java, Python, Assembly Language, Verilog, Cadence, Modelsim and Elementary Proficiency in C and R, HFSS, LTSpice
+Programming in C++, MATLAB, Java, Python, Assembly Language, Verilog
+Intermediate Proficiency in Cadence, Modelsim, Ansys HFSS, LTSpice, and programming in C and R
