@@ -16,8 +16,8 @@ Research Interests
 ------ 
 * Wireless sensing and communication systems
 * Smart material waveguides and antenna design for enhanced wireless coverage
-* Millimeter Wave/THz Sensing
-* Radio Frequency (RF) Integrated Circuits and Systems
+* Millimeter Wave/THz sensing and communication
+* Radio Frequency (RF) integrated circuits and systems
 
 Address
 ------
