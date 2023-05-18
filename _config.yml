@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Yawen Liu"
+title                    : "Home"
 title_separator          : "-"
 name                     : &name "Yawen Liu"
 description              : &description "personal description"
