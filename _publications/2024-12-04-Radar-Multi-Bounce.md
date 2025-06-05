@@ -1,5 +1,5 @@
 ---
-title: "Texture Classification by Audio-Tactile Crossmodal Congruence"
+title: "Hydra: Exploiting Multi-Bounce Scattering for Beyond-Field-of-View mmWave Radar"
 collection: publications
 permalink: /publication/2024-12-04-Radar-Multi-Bounce
 excerpt: ''
