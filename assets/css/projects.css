@@ -1,0 +1,18 @@
+/* Thumbnail / teaser image in archive or project card */
+.archive__item-teaser img,
+.project-card__thumb img {
+  width: 180px;       /* desired width */
+  height: 120px;      /* desired height */
+  object-fit: cover;  /* crop instead of stretching */
+  border-radius: 4px; /* optional styling */
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .archive__item-teaser img,
+  .project-card__thumb img {
+    width: 100%;
+    height: auto;
+  }
+}

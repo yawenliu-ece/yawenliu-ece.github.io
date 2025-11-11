@@ -232,10 +232,10 @@ defaults:
       path: ""
       type: researchproject
     values:
-      layout: single
-      author_profile: true
-      share: true
-      comment: true
+      layout: project
+      author_profile: false
+      share: false
+      comment: false
   # _talks
   - scope:
       path: ""

@@ -20,10 +20,10 @@ Research Interests
 My research focuses on **integrating hardware design and AI-driven approaches for next-generation wireless sensing and communications**. I design and build board-level and chip-level hardware and algorithms for signal enhancement, denoising, and anomaly detection. My work encompasses the design of smart metamaterial surfaces — programmable materials that can dynamically adapt their electromagnetic response to promote intelligent robotic tasks, autonomous systems, and wireless infrastructures.
 
 * Wireless sensing and communication systems
-* Smart material waveguides and antenna design for enhanced wireless coverage
-* Millimeter Wave/THz Sensing
-* Radio Frequency (RF) integrated circuits and systems
 * Metamaterial Surface
+* Millimeter Wave/sub-THz Sensing
+* Radio Frequency (RF) integrated circuits and systems
+* Smart material waveguides and antenna design for enhanced wireless coverage
 
 Address
 ------
