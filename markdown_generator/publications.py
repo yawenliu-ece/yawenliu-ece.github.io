@@ -15,6 +15,7 @@
 # - `excerpt` and `paper_url` can be blank, but the others must have values. 
 # - `pub_date` must be formatted as YYYY-MM-DD.
 # - `url_slug` will be the descriptive part of the .md file and the permalink URL for the page about the paper. The .md file will be `YYYY-MM-DD-[url_slug].md` and the permalink will be `https://[yourdomain]/publications/YYYY-MM-DD-[url_slug]`
+# - `pub_type` (optional) can be 'conference', 'journal', 'poster', or 'demo'. If not specified, defaults to 'conference' (shown in "Conferences and Journal Papers" section)
 
 
 # ## Import pandas
@@ -87,6 +88,10 @@ for row, item in publications.iterrows():
         md += "\npaperurl: '" + item.paper_url + "'"
     
     md += "\ncitation: '" + html_escape(item.citation) + "'"
+    
+    # Add pub_type field if it exists in the TSV (options: 'conference', 'journal', 'poster', 'demo')
+    if 'pub_type' in item and pd.notna(item.pub_type) and len(str(item.pub_type)) > 0:
+        md += "\npub_type: '" + str(item.pub_type) + "'"
     
     md += "\n---"
     

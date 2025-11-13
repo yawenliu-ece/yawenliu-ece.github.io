@@ -2,6 +2,7 @@
 title: "Shape-programming Robotic Reflectors for Wireless Networks"
 collection: publications
 permalink: /publication/2025-05-19-Robotic-Reflectors
+pub_type: 'conference'
 excerpt: 'With the increasing use of wireless technologies in robotics for communication, sensing, and localization, the potential benefits of how robotics can complement and enhance wireless systems remain underexplored. This paper explores a novel application of the existing inflatable robots for wireless communication systems by forming a shape-programming, reflective waveguide that enhances the received signal quality for wireless devices.'
 date: 2025-05-19
 venue: 'ICRA 2025' #'2025 IEEE International Conference on Robotics and Automation (ICRA)'

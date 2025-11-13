@@ -30,8 +30,8 @@
 .archive__subtitle {
   margin: 1.414em 0 0;
   padding-bottom: 0.5em;
-  font-size: $type-size-5;
-  color: mix(#fff, $gray, 25%);
+  font-size: $type-size-3; /* Larger size for section headings */
+  color: mix(#335765, $gray, 25%); /* Change this color for section headings */
   border-bottom: 1px solid $border-color;
 
   + .list__item .archive__item-title {
@@ -92,9 +92,11 @@
       font-size: 1.1em;
       font-weight: 600;
       text-decoration: none;
+      color: #38363D; /* Change this color for publication titles */
       
       &:hover {
         text-decoration: underline;
+        color: #38363D; /* Change this color for publication title hover state */
       }
     }
   }
@@ -118,6 +120,7 @@
     border-radius: 8px;
     overflow: hidden;
     min-height: 120px;
+    position: relative;
     
     img {
       display: block;
@@ -142,6 +145,51 @@
       border-radius: 8px;
       color: #999;
       font-size: 0.85em;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      
+      &:hover {
+        background-color: #e0e0e0;
+        color: #666;
+        text-decoration: none;
+      }
+    }
+
+    /* PDF container styling */
+    .archive__item-pdf-container {
+      position: relative;
+      width: 100%;
+      max-width: 120px;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+    }
+
+    .archive__item-pdf-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .archive__item-pdf-link {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 4px 6px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.75em;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 1);
+        color: #0066cc;
+      }
     }
 
     /* Adjustable image sizes */
@@ -150,6 +198,11 @@
       
       img {
         max-width: 100px;
+      }
+
+      .archive__item-pdf-container {
+        max-width: 100px;
+        height: 140px;
       }
       
       @include breakpoint($small) {
@@ -160,6 +213,11 @@
         img {
           max-width: 200px;
         }
+
+        .archive__item-pdf-container {
+          max-width: 200px;
+          height: 280px;
+        }
       }
     }
 
@@ -168,6 +226,11 @@
       
       img {
         max-width: 120px;
+      }
+
+      .archive__item-pdf-container {
+        max-width: 120px;
+        height: 160px;
       }
       
       @include breakpoint($small) {
@@ -178,6 +241,11 @@
         img {
           max-width: 250px;
         }
+
+        .archive__item-pdf-container {
+          max-width: 250px;
+          height: 330px;
+        }
       }
     }
 
@@ -186,6 +254,11 @@
       
       img {
         max-width: 180px;
+      }
+
+      .archive__item-pdf-container {
+        max-width: 180px;
+        height: 240px;
       }
       
       @include breakpoint($small) {
@@ -196,6 +269,11 @@
         img {
           max-width: 300px;
         }
+
+        .archive__item-pdf-container {
+          max-width: 300px;
+          height: 400px;
+        }
       }
     }
 
@@ -205,6 +283,11 @@
       img {
         max-width: 240px;
       }
+
+      .archive__item-pdf-container {
+        max-width: 240px;
+        height: 320px;
+      }
       
       @include breakpoint($small) {
         flex: 0 0 100%;
@@ -213,6 +296,11 @@
         
         img {
           max-width: 400px;
+        }
+
+        .archive__item-pdf-container {
+          max-width: 400px;
+          height: 530px;
         }
       }
     }

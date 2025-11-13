@@ -12,8 +12,9 @@
   {% assign title = post.title %}
 {% endif %}
 
-{% comment %} Extract first image from excerpt or content for publications {% endcomment %}
+{% comment %} Extract first image or PDF from excerpt or content for publications {% endcomment %}
 {% assign publication_image = null %}
+{% assign publication_is_pdf = false %}
 {% assign publication_image_size = post.image_size | default: "medium" %}
 {% if post.collection == 'publications' %}
   {% if post.header.image %}
@@ -21,7 +22,7 @@
   {% elsif post.header.teaser %}
     {% assign publication_image = post.header.teaser %}
   {% elsif post.content %}
-    {% comment %} Extract first image from markdown content using string manipulation {% endcomment %}
+    {% comment %} Extract first image/PDF from markdown content using string manipulation {% endcomment %}
     {% assign content_str = post.content %}
     {% if content_str contains '![' %}
       {% assign parts = content_str | split: '![' %}
@@ -46,6 +47,13 @@
       {% endif %}
     {% endif %}
   {% endif %}
+  {% comment %} Check if the file is a PDF {% endcomment %}
+  {% if publication_image != null %}
+    {% assign file_ext = publication_image | split: '.' | last | downcase %}
+    {% if file_ext == 'pdf' %}
+      {% assign publication_is_pdf = true %}
+    {% endif %}
+  {% endif %}
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
@@ -64,6 +72,7 @@
 
     {% if post.collection == 'publications' %}
       {% comment %} Publications layout: title/content on left, image on right (if available) {% endcomment %}
+      {% comment %} Note: Section headings ("Conferences and Journal Papers" and "Poster and Demo") are controlled by publications.md based on pub_type, not here {% endcomment %}
       <div class="archive__item-publication-wrapper">
         <div class="archive__item-publication-content">
           {% comment %} Title as link (not h2) {% endcomment %}
@@ -93,23 +102,46 @@
           {% endif %}
         </div>
         
-        {% comment %} Abstract figure on the right {% endcomment %}
+        {% comment %} Abstract figure on the right (image or PDF) {% endcomment %}
         <div class="archive__item-publication-image archive__item-image--{{ publication_image_size }}">
           {% if publication_image %}
-            <img src=
-              {% if publication_image contains "://" %}
-                "{{ publication_image }}"
-              {% elsif publication_image contains "/" %}
-                "{{ publication_image | prepend: base_path }}"
-              {% else %}
-                "{{ publication_image | prepend: "/images/" | prepend: base_path }}"
-              {% endif %}
-              alt="{{ title }}">
+            {% if publication_is_pdf %}
+              {% comment %} Display PDF in iframe {% endcomment %}
+              {% assign pdf_url = publication_image %}
+              {% unless pdf_url contains "://" %}
+                {% if pdf_url contains "/" %}
+                  {% assign pdf_url = pdf_url | prepend: base_path %}
+                {% else %}
+                  {% assign pdf_url = pdf_url | prepend: "/images/" | prepend: base_path %}
+                {% endif %}
+              {% endunless %}
+              <div class="archive__item-pdf-container">
+                <iframe src="{{ pdf_url }}#toolbar=0&navpanes=0&scrollbar=0" 
+                        type="application/pdf" 
+                        class="archive__item-pdf-iframe"
+                        title="{{ title }} PDF">
+                </iframe>
+                <a href="{{ pdf_url }}" target="_blank" class="archive__item-pdf-link" title="Open PDF in new tab">
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              </div>
+            {% else %}
+              {% comment %} Display regular image {% endcomment %}
+              <img src=
+                {% if publication_image contains "://" %}
+                  "{{ publication_image }}"
+                {% elsif publication_image contains "/" %}
+                  "{{ publication_image | prepend: base_path }}"
+                {% else %}
+                  "{{ publication_image | prepend: "/images/" | prepend: base_path }}"
+                {% endif %}
+                alt="{{ title }}">
+            {% endif %}
           {% else %}
-            {% comment %} Placeholder if no image found {% endcomment %}
-            <div class="archive__item-image-placeholder">
-              <span>No image</span>
-            </div>
+            {% comment %} Placeholder if no image/PDF found - links to main page {% endcomment %}
+            <a href="{{ base_path }}/" class="archive__item-image-placeholder" title="Back to home">
+              <span>Home</span>
+            </a>
           {% endif %}
         </div>
       </div>
