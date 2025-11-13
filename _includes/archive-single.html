@@ -12,8 +12,44 @@
   {% assign title = post.title %}
 {% endif %}
 
+{% comment %} Extract first image from excerpt or content for publications {% endcomment %}
+{% assign publication_image = null %}
+{% assign publication_image_size = post.image_size | default: "medium" %}
+{% if post.collection == 'publications' %}
+  {% if post.header.image %}
+    {% assign publication_image = post.header.image %}
+  {% elsif post.header.teaser %}
+    {% assign publication_image = post.header.teaser %}
+  {% elsif post.content %}
+    {% comment %} Extract first image from markdown content using string manipulation {% endcomment %}
+    {% assign content_str = post.content %}
+    {% if content_str contains '![' %}
+      {% assign parts = content_str | split: '![' %}
+      {% if parts.size > 1 %}
+        {% assign img_part = parts[1] %}
+        {% if img_part contains '](' %}
+          {% assign img_path = img_part | split: '](' | last | split: ')' | first %}
+          {% if img_path != '' %}
+            {% assign publication_image = img_path %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+    {% comment %} Also check for HTML img tags {% endcomment %}
+    {% if publication_image == null and content_str contains '<img' %}
+      {% assign img_start = content_str | split: '<img' | last %}
+      {% if img_start contains 'src=' %}
+        {% assign src_part = img_start | split: 'src=' | last | split: ' ' | first | remove: '"' | remove: "'" %}
+        {% if src_part != '' %}
+          {% assign publication_image = src_part %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
 <div class="{{ include.type | default: "list" }}__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item {% if post.collection == 'publications' %}archive__item--publication{% endif %}" itemscope itemtype="http://schema.org/CreativeWork">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
         <img src=
@@ -26,30 +62,82 @@
       </div>
     {% endif %}
 
-    <h2 class="archive__item-title" itemprop="headline">
-      {% if post.link %}
-        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
-      {% else %}
-        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
-      {% endif %}
-    </h2>
-    
-    {% if post.read_time %}
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
-    {% endif %}
-
-        {% if post.collection == 'teaching' %}
-          <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.collection == 'publications' %}
-          <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif post.date %}
-         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+    {% if post.collection == 'publications' %}
+      {% comment %} Publications layout: title/content on left, image on right (if available) {% endcomment %}
+      <div class="archive__item-publication-wrapper">
+        <div class="archive__item-publication-content">
+          {% comment %} Title as link (not h2) {% endcomment %}
+          <div class="archive__item-title-link" itemprop="headline">
+            {% if post.paperurl %}
+              <a href="{{ post.paperurl }}">{{ title }}</a>
+            {% elsif post.link %}
+              <a href="{{ post.link }}">{{ title }}</a>
+            {% else %}
+              <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
+            {% endif %}
+          </div>
+          
+          {% comment %} Authors {% endcomment %}
+          {% if post.authors %}
+            <div class="archive__item-authors">{{ post.authors }}</div>
+          {% endif %}
+          
+          {% comment %} Venue in italics {% endcomment %}
+          {% if post.venue %}
+            <div class="archive__item-venue"><em>{{ post.venue }}</em></div>
+          {% endif %}
+          
+          {% comment %} Optional award/highlight text {% endcomment %}
+          {% if post.award %}
+            <div class="archive__item-award"><em style="color: red;">{{ post.award }}</em></div>
+          {% endif %}
+        </div>
+        
+        {% comment %} Abstract figure on the right {% endcomment %}
+        <div class="archive__item-publication-image archive__item-image--{{ publication_image_size }}">
+          {% if publication_image %}
+            <img src=
+              {% if publication_image contains "://" %}
+                "{{ publication_image }}"
+              {% elsif publication_image contains "/" %}
+                "{{ publication_image | prepend: base_path }}"
+              {% else %}
+                "{{ publication_image | prepend: "/images/" | prepend: base_path }}"
+              {% endif %}
+              alt="{{ title }}">
+          {% else %}
+            {% comment %} Placeholder if no image found {% endcomment %}
+            <div class="archive__item-image-placeholder">
+              <span>No image</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      {% comment %} Default layout for non-publications {% endcomment %}
+      <h2 class="archive__item-title" itemprop="headline">
+        {% if post.link %}
+          <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+        {% else %}
+          <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
         {% endif %}
+      </h2>
+      
+      {% if post.read_time %}
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> {% include read-time.html %}</p>
+      {% endif %}
 
-    {% if post.excerpt and site.read_more != 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
-    {% elsif post.excerpt and site.read_more == 'enabled' %}
-    <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+      {% if post.collection == 'teaching' %}
+        <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
+      {% elsif post.date %}
+       <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+      {% endif %}
+
+      {% if post.excerpt and site.read_more != 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
+      {% elsif post.excerpt and site.read_more == 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+      {% endif %}
     {% endif %}
     
     <!-- {% if post.citation and post.paperurl %}

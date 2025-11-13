@@ -4,7 +4,8 @@ collection: publications
 permalink: /publication/2025-02-26-RFBridge-FreqConverting-Surface
 excerpt: ''
 date: 2025-02-26
-venue: 'Proceedings of the 26th International Workshop on Mobile Computing Systems and Applications (HotMobile)'
+venue: 'HotMobile 2025'
+author: 'Yawen Liu, Shivang Aggarwal, Mohamed Ibrahim, Puneet Sharma, and Swarun Kumar'
 paperurl: 'https://dl.acm.org/doi/abs/10.1145/3708468.3711884'
 citation: 'Yawen Liu, Shivang Aggarwal, Mohamed Ibrahim, Puneet Sharma, and Swarun Kumar. 2025. RFBridge: Ultra Wideband Reconfigurable Metamaterial Surface Enabling Frequency Conversion. In Proceedings of the 26th International Workshop on Mobile Computing Systems and Applications (HotMobile). Association for Computing Machinery, New York, NY, USA, 67–72. https://doi.org/10.1145/3708468.3711884'
 ---
