@@ -23,11 +23,11 @@ My research focuses on **integrating hardware design and AI-driven approaches fo
 
 <div class="research-interests-figures">
   <div class="research-figure-item">
-    <img src="/static/cover/metasurface.jpg" alt="Metamaterial Surface" />
+    <img src="/static/cover/metasurface.JPG" alt="Metamaterial Surface" />
     <p class="research-figure-caption">Metamaterial Surface</p>
   </div>
   <div class="research-figure-item">
-    <img src="/static/cover/radar.jpg" alt="Millimeter Wave Sensing" />
+    <img src="/static/cover/radar.JPG" alt="Millimeter Wave Sensing" />
     <p class="research-figure-caption">Millimeter Wave Sensing</p>
   </div>
 </div>
