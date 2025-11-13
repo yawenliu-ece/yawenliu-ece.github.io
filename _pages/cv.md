@@ -11,7 +11,7 @@ Education
 ------ 
 * B.S. in Electrical Engineering, University of Southern California, 2022
 * B.S. in Applied and Computational Mathematics, University of Southern California, 2022
-* PhD student in Electrical and Computer Engineering, Carnegie Mellon University, 2027 (expected)
+* PhD student in Electrical and Computer Engineering, Carnegie Mellon University, in-progress
 
 Experience
 ------ 
