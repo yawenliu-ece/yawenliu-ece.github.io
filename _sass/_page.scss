@@ -105,6 +105,51 @@
     margin-top: -1.5em;
     padding-left: 1.25rem;
   }
+
+  /* Research interests figures */
+  .research-interests-figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+
+    @include breakpoint($small) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5em;
+    }
+
+    @include breakpoint(max-width $small) {
+      grid-template-columns: 1fr;
+      gap: 1.5em;
+    }
+  }
+
+  .research-figure-item {
+    text-align: center;
+    
+    img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 0.75em;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    .research-figure-caption {
+      margin: 0;
+      font-size: 0.9em;
+      color: #666;
+      font-weight: 500;
+    }
+  }
 }
 
 .page__hero {

@@ -17,13 +17,27 @@ I hold a B.S. in Electrical Engineering and a B.S. in Applied and Computational 
 Research Interests
 ------ 
 
-My research focuses on **integrating hardware design and AI-driven approaches for next-generation wireless sensing and communications**. I design and build board-level and chip-level hardware and algorithms for signal enhancement, denoising, and anomaly detection. My work encompasses the design of smart metamaterial surfaces — programmable materials that can dynamically adapt their electromagnetic response to promote intelligent robotic tasks, autonomous systems, and wireless infrastructures.
+My research focuses on **integrating hardware design and AI-driven approaches for next-generation wireless sensing and communications**. I design and build board-level and chip-level hardware and algorithms for signal enhancement, scene segmentation and anomaly detection. My work encompasses the design of smart metamaterial surfaces — programmable materials that can dynamically adapt their electromagnetic response to promote intelligent robotic tasks, autonomous systems, and wireless infrastructures.
+
+
+
+<div class="research-interests-figures">
+  <div class="research-figure-item">
+    <img src="/static/cover/metasurface.png" alt="Metamaterial Surface" />
+    <p class="research-figure-caption">Metamaterial Surface</p>
+  </div>
+  <div class="research-figure-item">
+    <img src="/static/cover/radar.png" alt="Millimeter Wave Sensing" />
+    <p class="research-figure-caption">Millimeter Wave Sensing</p>
+  </div>
+</div>
 
 * Wireless sensing and communication systems
 * Metamaterial Surface
 * Millimeter Wave/sub-THz Sensing
 * Radio Frequency (RF) integrated circuits and systems
 * Smart material waveguides and antenna design for enhanced wireless coverage
+
 
 Address
 ------
