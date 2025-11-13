@@ -1,24 +1,22 @@
 ---
-title: "Hydra: Exploiting Multi-Bounce Scattering for Beyond-Field-of-View mmWave Radar"
+title: "Surface Material and Roughness Sensing using mmWave via Surface Scattering and Ambient Vibrations"
 collection: publications
-permalink: /publication/2024-12-04-Radar-Multi-Bounce
+permalink: /publication/2025-11-01-Radar-Texture
 excerpt: ''
-date: 2024-12-04
-venue: 'Mobicom 2024'
+date: 2026-05-11
+venue: 'SenSys 2026'
 pub_type: 'conference'
-authors: 'Nishant Mehrotra, Divyanshu Pandey, Akarsh Prabhakara, Yawen Liu, Swarun Kumar, Ashutosh Sabharwal'
-paperurl: 'https://dl.acm.org/doi/abs/10.1145/3636534.3690710'
-citation: 'Nishant Mehrotra, Divyanshu Pandey, Akarsh Prabhakara, Yawen Liu, Swarun Kumar, and Ashutosh Sabharwal. 2024. Hydra: Exploiting Multi-Bounce Scattering for Beyond-Field-of-View mmWave Radar. In Proceedings of the 30th Annual International Conference on Mobile Computing and Networking (ACM MobiCom). Association for Computing Machinery, New York, NY, USA, 1545–1559. https://doi.org/10.1145/3636534.3690710.'
+authors: 'Yawen Liu, Bert Shan, Swarun Kumar'
+paperurl: ''
+citation: ''
 ---
 
-![](/static/image/Hydra/Hydra_teaser.png)
-
+![](/static/image/mmTexora/abstract.png)
 
 
 Abstract
 ---
-In this paper, we ask, "Can millimeter-wave (mmWave) radars sense objects not directly illuminated by the radar - for instance, objects located outside the transmit beamwidth, behind occlusions, or placed fully behind the radar?" Traditionally, mmWave radars are limited to sense objects that are directly illuminated by the radar and scatter its signals directly back. In practice, however, radar signals scatter to other intermediate objects in the environment and undergo multiple bounces before being received back at the radar. In this paper, we present Hydra, a framework to explicitly model and exploit multi-bounce paths for sensing. Hydra enables standalone mmWave radars to sense beyond-field-of-view objects without prior knowledge of the environment. We extensively evaluate the localization performance of Hydra with an off-the-shelf mmWave radar in five different environments with everyday objects. Exploiting multi-bounce via Hydra provides 2×-10× improvement in the median beyond-field-of-view localization error over baselines.
+In this paper, we explore a system to sense the roughness of surfaces, even if obstructed from field-of-view. We pose this question in the context of robotic grasping and manipulation to explore if robots can learn the texture of objects prior to grasping them. Importantly, we seek to do so in a completely contact-free fashion (ruling out tactile sensors), despite obstructions (ruling out cameras and lidar). We present mmTexora a novel roughness sensing system using mmWave radar. mmTexora leverages ambient vibrations that produce temporal phase variations to objects in everyday environments, when perceived by radar. We demonstrate how these phase variations convey valuable information about the structure of bumps and ridges on a surface, thereby revealing details about surface roughness. We then develop a signal processing and deep learning pipeline that extracts surface roughness from signal’s temporal variations. mmTexora uses this information to classify surface textures when the material type of an object is known. Conversely, mmTexora can also classify material types for objects when they are known to have similar textures. We perform a qualitative study on a robotic arm tested on diverse objects, where either texture or material type is varied individually. Our classification model achieves an average surface classification accuracy of 93.7% on 50 surfaces that are commonly seen in daily life, with an average absolute error of 0.11 mm in roughness measurements
 
-[Download paper here](https://dl.acm.org/doi/abs/10.1145/3636534.3690710)
 
-Recommended citation: Nishant Mehrotra, Divyanshu Pandey, Akarsh Prabhakara, Yawen Liu, Swarun Kumar, and Ashutosh Sabharwal. 2024. Hydra: Exploiting Multi-Bounce Scattering for Beyond-Field-of-View mmWave Radar. In Proceedings of the 30th Annual International Conference on Mobile Computing and Networking (ACM MobiCom '24). Association for Computing Machinery, New York, NY, USA, 1545–1559. https://doi.org/10.1145/3636534.3690710
+Recommended citation: 
