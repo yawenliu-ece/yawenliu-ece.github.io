@@ -11,7 +11,7 @@ citation: 'Yawen Liu, Akarsh Prabhakara, Jiangyifei Zhu, Qiaoyi Shen, Swarun Kum
 image_size: medium  # Options: small, medium, large, xlarge
 ---
 
-![](/static/image/MetaMorph/abstract.png)
+![](/static/image/MetaMorph/metamorph.png)
 
 
 Abstract
