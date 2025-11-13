@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/2024-12-04-Radar-Multi-Bounce
 excerpt: ''
 date: 2024-12-04
-venue: 'Mobicom 2024'
+venue: 'MobiCom 2024'
 pub_type: 'conference'
 authors: 'Nishant Mehrotra, Divyanshu Pandey, Akarsh Prabhakara, Yawen Liu, Swarun Kumar, Ashutosh Sabharwal'
 paperurl: 'https://dl.acm.org/doi/abs/10.1145/3636534.3690710'

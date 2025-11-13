@@ -14,41 +14,208 @@ layout: default
   {% endunless %}
 {% endif %}
 
+{% comment %} Extract first image or PDF from content for research projects {% endcomment %}
+{% assign project_image = null %}
+{% assign project_is_pdf = false %}
+{% assign project_image_size = page.image_size | default: "medium" %}
+{% if page.header.image %}
+  {% assign project_image = page.header.image %}
+{% elsif page.header.teaser %}
+  {% assign project_image = page.header.teaser %}
+{% elsif page.content %}
+  {% assign content_str = page.content %}
+  {% if content_str contains '![' %}
+    {% assign parts = content_str | split: '![' %}
+    {% if parts.size > 1 %}
+      {% assign img_part = parts[1] %}
+      {% if img_part contains '](' %}
+        {% assign img_path = img_part | split: '](' | last | split: ')' | first %}
+        {% if img_path != '' %}
+          {% assign project_image = img_path %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% if project_image == null and content_str contains '<img' %}
+    {% assign img_start = content_str | split: '<img' | last %}
+    {% if img_start contains 'src=' %}
+      {% assign src_part = img_start | split: 'src=' | last | split: ' ' | first | remove: '"' | remove: "'" %}
+      {% if src_part != '' %}
+        {% assign project_image = src_part %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% comment %} Check if the file is a PDF {% endcomment %}
+{% if project_image != null %}
+  {% assign file_ext = project_image | split: '.' | last | downcase %}
+  {% if file_ext == 'pdf' %}
+    {% assign project_is_pdf = true %}
+  {% endif %}
+{% endif %}
+
 <div id="main" role="main">
   {% include sidebar.html %}
 
-  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="page page--project" itemscope itemtype="http://schema.org/CreativeWork">
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
     {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
+        <div class="page__project-wrapper">
+          <div class="page__project-content">
+            <header>
+              {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
+              
+              {% if page.description %}
+                <div class="page__project-description"><em>{{ page.description }}</em></div>
+              {% endif %}
+              
+              {% comment %} Figure below description {% endcomment %}
+              <div class="page__project-image page__project-image--{{ project_image_size }}">
+                {% if project_image %}
+                  {% if project_is_pdf %}
+                    {% assign pdf_url = project_image %}
+                    {% unless pdf_url contains "://" %}
+                      {% if pdf_url contains "/" %}
+                        {% assign pdf_url = pdf_url | prepend: base_path %}
+                      {% else %}
+                        {% assign pdf_url = pdf_url | prepend: "/images/" | prepend: base_path %}
+                      {% endif %}
+                    {% endunless %}
+                    <div class="page__project-pdf-container">
+                      <iframe src="{{ pdf_url }}#toolbar=0&navpanes=0&scrollbar=0" 
+                              type="application/pdf" 
+                              class="page__project-pdf-iframe"
+                              title="{{ page.title }} PDF">
+                      </iframe>
+                      <a href="{{ pdf_url }}" target="_blank" class="page__project-pdf-link" title="Open PDF in new tab">
+                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  {% else %}
+                    <img src=
+                      {% if project_image contains "://" %}
+                        "{{ project_image }}"
+                      {% elsif project_image contains "/" %}
+                        "{{ project_image | prepend: base_path }}"
+                      {% else %}
+                        "{{ project_image | prepend: "/images/" | prepend: base_path }}"
+                      {% endif %}
+                      alt="{{ page.title }}">
+                  {% endif %}
+                {% else %}
+                  <div class="page__project-image-placeholder">
+                    <span>No image</span>
+                  </div>
+                {% endif %}
+              </div>
+              
+              {% comment %} Abstract text box - shows excerpt from front matter {% endcomment %}
+              {% if page.excerpt %}
+                <div class="page__project-abstract">
+                  {{ page.excerpt | markdownify }}
+                </div>
+              {% endif %}
+            </header>
+
+            <section class="page__content" itemprop="text">
+              {% comment %} Extract content without the first image and abstract section {% endcomment %}
+              {% assign clean_content = page.content %}
+              {% comment %} Remove first image if it matches project_image {% endcomment %}
+              {% if clean_content contains '![' and project_image %}
+                {% assign content_parts = clean_content | split: '![' %}
+                {% assign clean_content = '' %}
+                {% for part in content_parts %}
+                  {% if forloop.first %}
+                    {% assign clean_content = part %}
+                  {% else %}
+                    {% if part contains '](' %}
+                      {% assign img_check = part | split: '](' | last | split: ')' | first %}
+                      {% if img_check == project_image %}
+                        {% assign after_img = part | split: ')' | last %}
+                        {% assign clean_content = clean_content | append: after_img %}
+                      {% else %}
+                        {% assign clean_content = clean_content | append: '![' | append: part %}
+                      {% endif %}
+                    {% else %}
+                      {% assign clean_content = clean_content | append: '![' | append: part %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              {% comment %} Remove Abstract heading and its content if excerpt exists (abstract is shown in text box) {% endcomment %}
+              {% if page.excerpt and clean_content contains 'Abstract' %}
+                {% comment %} Split by Abstract heading {% endcomment %}
+                {% assign abstract_sections = clean_content | split: 'Abstract' %}
+                {% if abstract_sections.size > 1 %}
+                  {% comment %} Get content before Abstract {% endcomment %}
+                  {% assign before_abstract = abstract_sections[0] %}
+                  {% comment %} Get content after Abstract section (skip separator and abstract text) {% endcomment %}
+                  {% assign after_abstract = abstract_sections[1] %}
+                  {% comment %} Remove separator line (---) and abstract text until next content {% endcomment %}
+                  {% if after_abstract contains '---' %}
+                    {% assign after_separator = after_abstract | split: '---' %}
+                    {% if after_separator.size > 1 %}
+                      {% assign after_abstract = after_separator[1] %}
+                      {% comment %} Find the first real content (links, headings, etc.) {% endcomment %}
+                      {% if after_abstract contains '[' or after_abstract contains '##' or after_abstract contains '###' %}
+                        {% assign clean_content = before_abstract | append: after_abstract %}
+                      {% else %}
+                        {% assign clean_content = before_abstract %}
+                      {% endif %}
+                    {% else %}
+                      {% assign clean_content = before_abstract | append: after_abstract %}
+                    {% endif %}
+                  {% else %}
+                    {% assign clean_content = before_abstract | append: after_abstract %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+              {{ clean_content }}
+            </section>
+
+            {% comment %} Links section at the bottom {% endcomment %}
+            <div class="page__project-links">
+              {% if page.paperpdf %}
+                <a href="{{ page.paperpdf }}" class="page__project-link" target="_blank">
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Paper PDF
+                </a>
+              {% elsif page.paperurl %}
+                <a href="{{ page.paperurl }}" class="page__project-link" target="_blank">
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Paper
+                </a>
+              {% endif %}
+              
+              {% if page.github %}
+                <a href="{{ page.github }}" class="page__project-link" target="_blank">
+                  <i class="fa fa-github" aria-hidden="true"></i> GitHub
+                </a>
+              {% endif %}
+              
+              {% comment %} DOI link removed - hidden and not clickable {% endcomment %}
+            </div>
+
+            <footer class="page__meta">
+              {% if site.data.ui-text[site.locale].meta_label %}
+                <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
+              {% endif %}
+              {% include page__taxonomy.html %}
+            </footer>
+
+            {% if page.share %}{% include social-share.html %}{% endif %}
+          </div>
+        </div>
+      {% else %}
+        {% comment %} If header overlay exists, use default layout {% endcomment %}
         <header>
-        {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
-
-      
-        {% if page.citation and page.paperurl %}
-          <p>Recommended citation: {{ page.citation }} <a href="{{ page.paperurl }}"><u>{{ page.paperurl }}</u></a></p>
-        {% elsif page.citation %}
-          <p>Recommended citation: {{ page.citation }} </p>
-        {% endif %} 
-    
+          {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
         </header>
+        <section class="page__content" itemprop="text">
+          {{ page.content }}
+        </section>
       {% endunless %}
-
-      <section class="page__content" itemprop="text">
-        {{ content }}
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
-      </section>
-
-      <footer class="page__meta">
-        {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
-        {% endif %}
-        {% include page__taxonomy.html %}
-      </footer>
-
-      {% if page.share %}{% include social-share.html %}{% endif %}
 
       {% include post_pagination.html %}
     </div>
@@ -66,7 +233,7 @@ layout: default
       {% endif %}
       <div class="grid__wrapper">
         {% for post in site.related_posts limit:4 %}
-          {% include archive-project.html type="grid" %}
+          {% include archive-single.html type="grid" %}
         {% endfor %}
       </div>
     </div>

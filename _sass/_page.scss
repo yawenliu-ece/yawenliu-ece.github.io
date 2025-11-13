@@ -399,3 +399,201 @@
   font-size: $type-size-6;
   text-transform: uppercase;
 }
+
+/*
+   Project page layout: title/abstract on left, figure on right
+   ========================================================================== */
+
+.page--project {
+  .page__project-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 2em;
+
+    @include breakpoint($small) {
+      gap: 20px;
+    }
+  }
+
+  .page__project-content {
+    width: 100%;
+  }
+
+  .page__project-description {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .page__project-abstract {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    border-left: 4px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .page__project-links {
+    margin-top: 2em;
+    margin-bottom: 1em;
+    padding-top: 1em;
+    border-top: 1px solid $border-color;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+
+  .page__project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 1em;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    
+    &:hover {
+      background-color: #e0e0e0;
+      border-color: #999;
+      text-decoration: none;
+      color: #0066cc;
+    }
+    
+    i {
+      font-size: 1.1em;
+    }
+  }
+
+  .page__project-image {
+    width: 100%;
+    text-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1em;
+    
+    img {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 12px !important;
+      transition: transform 0.3s ease;
+      object-fit: cover;
+    }
+
+    &:hover img {
+      transform: scale(1.02);
+      border-radius: 12px !important;
+    }
+
+    .page__project-image-placeholder {
+      width: 100%;
+      max-width: 600px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f0f0;
+      border-radius: 12px;
+      color: #999;
+      font-size: 0.85em;
+      margin: 0 auto;
+    }
+
+    /* PDF container styling */
+    .page__project-pdf-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 800px;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      margin: 0 auto;
+    }
+
+    .page__project-pdf-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .page__project-pdf-link {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 4px 6px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.75em;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 1);
+        color: #0066cc;
+      }
+    }
+
+    /* Adjustable image sizes */
+    &.page__project-image--small {
+      img {
+        max-width: 400px;
+        border-radius: 12px !important;
+      }
+
+      .page__project-pdf-container {
+        max-width: 400px;
+        height: 560px;
+      }
+    }
+
+    &.page__project-image--medium {
+      img {
+        max-width: 500px;
+        border-radius: 12px !important;
+      }
+
+      .page__project-pdf-container {
+        max-width: 500px;
+        height: 700px;
+      }
+    }
+
+    &.page__project-image--large {
+      img {
+        max-width: 600px;
+        border-radius: 12px !important;
+      }
+
+      .page__project-pdf-container {
+        max-width: 600px;
+        height: 800px;
+      }
+    }
+
+    &.page__project-image--xlarge {
+      img {
+        max-width: 700px;
+        border-radius: 12px !important;
+      }
+
+      .page__project-pdf-container {
+        max-width: 700px;
+        height: 980px;
+      }
+    }
+  }
+}

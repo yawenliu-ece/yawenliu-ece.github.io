@@ -7,8 +7,7 @@ author_profile: true
 
 {% include base_path %}
 
-
-{% for post in site.researchproject %}
-  {% include archive-project.html %}
+{% for post in site.researchproject reversed %}
+  {% include archive-single.html %}
 {% endfor %}
 

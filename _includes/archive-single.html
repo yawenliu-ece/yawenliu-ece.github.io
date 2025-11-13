@@ -12,11 +12,11 @@
   {% assign title = post.title %}
 {% endif %}
 
-{% comment %} Extract first image or PDF from excerpt or content for publications {% endcomment %}
+{% comment %} Extract first image or PDF from excerpt or content for publications and research projects {% endcomment %}
 {% assign publication_image = null %}
 {% assign publication_is_pdf = false %}
 {% assign publication_image_size = post.image_size | default: "medium" %}
-{% if post.collection == 'publications' %}
+{% if post.collection == 'publications' or post.collection == 'researchproject' %}
   {% if post.header.image %}
     {% assign publication_image = post.header.image %}
   {% elsif post.header.teaser %}
@@ -57,7 +57,7 @@
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
-  <article class="archive__item {% if post.collection == 'publications' %}archive__item--publication{% endif %}" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item {% if post.collection == 'publications' or post.collection == 'researchproject' %}archive__item--publication{% endif %}" itemscope itemtype="http://schema.org/CreativeWork">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
         <img src=
@@ -70,15 +70,17 @@
       </div>
     {% endif %}
 
-    {% if post.collection == 'publications' %}
-      {% comment %} Publications layout: title/content on left, image on right (if available) {% endcomment %}
+    {% if post.collection == 'publications' or post.collection == 'researchproject' %}
+      {% comment %} Publications and Research Projects layout: title/content on left, image on right (if available) {% endcomment %}
       {% comment %} Note: Section headings ("Conferences and Journal Papers" and "Poster and Demo") are controlled by publications.md based on pub_type, not here {% endcomment %}
       <div class="archive__item-publication-wrapper">
         <div class="archive__item-publication-content">
           {% comment %} Title as link (not h2) {% endcomment %}
           <div class="archive__item-title-link" itemprop="headline">
-            {% if post.paperurl %}
+            {% if post.collection == 'publications' and post.paperurl %}
               <a href="{{ post.paperurl }}">{{ title }}</a>
+            {% elsif post.collection == 'researchproject' %}
+              <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
             {% elsif post.link %}
               <a href="{{ post.link }}">{{ title }}</a>
             {% else %}
@@ -91,9 +93,39 @@
             <div class="archive__item-authors">{{ post.authors }}</div>
           {% endif %}
           
-          {% comment %} Venue in italics {% endcomment %}
-          {% if post.venue %}
+          {% comment %} Venue in italics (for publications) or description (for research projects) {% endcomment %}
+          {% if post.collection == 'publications' and post.venue %}
             <div class="archive__item-venue"><em>{{ post.venue }}</em></div>
+          {% elsif post.collection == 'researchproject' and post.description %}
+            <div class="archive__item-venue"><em>{{ post.description }}</em></div>
+          {% endif %}
+          
+          {% comment %} Abstract for research projects {% endcomment %}
+          {% if post.collection == 'researchproject' and post.excerpt %}
+            <div class="archive__item-excerpt-text">{{ post.excerpt | markdownify }}</div>
+          {% endif %}
+          
+          {% comment %} Links for research projects (Full paper and GitHub on same row) {% endcomment %}
+          {% if post.collection == 'researchproject' and (post.paperpdf or post.paperurl or post.github) %}
+            <div class="archive__item-links-row">
+              {% if post.paperpdf %}
+                {% assign pdf_link = post.paperpdf %}
+                {% unless pdf_link contains "://" %}
+                  {% if pdf_link contains "/" %}
+                    {% assign pdf_link = pdf_link | prepend: base_path %}
+                  {% else %}
+                    {% assign pdf_link = pdf_link | prepend: "/static/file/" | prepend: base_path %}
+                  {% endif %}
+                {% endunless %}
+                <a href="{{ pdf_link }}" target="_blank" class="archive__item-paper-link">[Full paper]</a>
+              {% elsif post.paperurl %}
+                <a href="{{ post.paperurl }}" target="_blank" class="archive__item-paper-link">[Full paper]</a>
+              {% endif %}
+              
+              {% if post.github %}
+                <a href="{{ post.github }}" target="_blank" class="archive__item-paper-link">[GitHub]</a>
+              {% endif %}
+            </div>
           {% endif %}
           
           {% comment %} Optional award/highlight text {% endcomment %}
