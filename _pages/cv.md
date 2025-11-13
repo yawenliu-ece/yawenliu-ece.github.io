@@ -15,6 +15,11 @@ Education
 
 Experience
 ------ 
+### Hewlett Packard Enterprise Labs, Milpitas, CA
+> Research Intern at the Networking and Distributed Systems Lab, Manager: Puneet Sharma
+
+* Prototype a software-controlled metasurface to advance next generation Wi-Fi and private 5G networks
+
 ### Department of Electrical and Computer Engiasmneering, USC Los Angeles, CA
 > Researcher, under the supervision of Prof. Bhaskar Krishnamachari Aug. 2021–May 2022
 

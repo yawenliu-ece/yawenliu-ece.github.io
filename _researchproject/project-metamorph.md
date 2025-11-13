@@ -3,7 +3,7 @@ title: "MetaMorph: Robotic Smart Reflector"
 collection: researchproject
 permalink: /researchproject/project-metamorph
 excerpt: >
-    We presented MetaMorph, a novel application of the existing inflatable robots for wireless communication systems by forming a shape-programming, reflective waveguide that enhances the received signal quality for wireless devices. This extra geometry flexibility enables better adaptability to multipath changes, as in the environments or transmitter locations. For example, thick of a temporary construction site might block the long-range communication signal path and drain a small IoT device's battery quickly for more retransmission attempts. This proposes This repository hosts files including simulation, fabrication, and control circuits to investigate the design of the reflector.
+    A simple soda can can act as a directional reflector to improve wireless signal strength by focusing energy toward one direction. But what if such reflective surfaces were shape-programmable and able to adapt to environmental changes? We introduce MetaMorph, a shape-programmable reflective waveguide built using inflatable robotic structures to enhance wireless reception. By dynamically adjusting its geometry, MetaMorph adapts to multipath variations and changes in transmitter location. This adaptability helps maintain reliable links in situations where temporary obstructions—such as construction—would otherwise degrade signal quality and force small IoT devices to waste energy on retransmissions.
 date: 2025-05-19
 description: 'Wireless + Robotics'
 paperpdf: '/static/file/metamorph-icra25.pdf'  # Direct link to PDF file
