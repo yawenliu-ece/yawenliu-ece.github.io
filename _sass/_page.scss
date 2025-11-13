@@ -423,6 +423,11 @@
   .page__project-description {
     margin-top: 0.5em;
     margin-bottom: 1em;
+    color: #666; /* Change this color for description text */
+    
+    em {
+      color: #666; /* Change this color for description text */
+    }
   }
 
   .page__project-abstract {

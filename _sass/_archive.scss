@@ -108,6 +108,11 @@
 
   .archive__item-venue {
     margin-bottom: 0.25em;
+    color: #B6D9E0; /* Change this color for description/venue text */
+    
+    em {
+      color: #B6D9E0; /* Change this color for description/venue text */
+    }
   }
 
   .archive__item-excerpt-text {
