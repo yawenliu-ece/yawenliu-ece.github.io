@@ -179,22 +179,36 @@ layout: default
             {% comment %} Links section at the bottom {% endcomment %}
             <div class="page__project-links">
               {% if page.paperpdf %}
-                <a href="{{ page.paperpdf }}" class="page__project-link" target="_blank">
+                {% assign pdf_link = page.paperpdf %}
+                {% unless pdf_link contains "://" %}
+                  {% if pdf_link contains "/" %}
+                    {% assign pdf_link = pdf_link | prepend: base_path %}
+                  {% else %}
+                    {% assign pdf_link = pdf_link | prepend: "/static/file/" | prepend: base_path %}
+                  {% endif %}
+                {% endunless %}
+                <a href="{{ pdf_link }}" class="page__project-link" target="_blank">
                   <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Paper PDF
                 </a>
-              {% elsif page.paperurl %}
+              {% endif %}
+
+              {% if page.paperurl %}
                 <a href="{{ page.paperurl }}" class="page__project-link" target="_blank">
-                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Paper
+                  <i class="fa fa-external-link" aria-hidden="true"></i> Paper Page
                 </a>
               {% endif %}
-              
+
+              {% if page.doi %}
+                <a href="{{ page.doi }}" class="page__project-link" target="_blank">
+                  <i class="ai ai-doi" aria-hidden="true"></i> DOI
+                </a>
+              {% endif %}
+               
               {% if page.github %}
                 <a href="{{ page.github }}" class="page__project-link" target="_blank">
                   <i class="fa fa-github" aria-hidden="true"></i> GitHub
                 </a>
               {% endif %}
-              
-              {% comment %} DOI link removed - hidden and not clickable {% endcomment %}
             </div>
 
             <footer class="page__meta">

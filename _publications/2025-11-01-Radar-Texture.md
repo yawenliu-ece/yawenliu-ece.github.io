@@ -7,7 +7,7 @@ date: 2026-05-11
 venue: 'SenSys 2026'
 pub_type: 'conference'
 authors: 'Yawen Liu, Bert Shan, Swarun Kumar'
-paperurl: ''
+paperurl: 'https://dl.acm.org/doi/epdf/10.1145/3774906.3800459'
 citation: ''
 ---
 

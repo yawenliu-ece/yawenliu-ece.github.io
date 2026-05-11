@@ -105,8 +105,8 @@
             <div class="archive__item-excerpt-text">{{ post.excerpt | markdownify }}</div>
           {% endif %}
           
-          {% comment %} Links for research projects (Full paper and GitHub on same row) {% endcomment %}
-          {% if post.collection == 'researchproject' and (post.paperpdf or post.paperurl or post.github) %}
+          {% comment %} Links for research projects (paper links and GitHub on same row) {% endcomment %}
+          {% if post.collection == 'researchproject' and (post.paperpdf or post.paperurl or post.doi or post.github) %}
             <div class="archive__item-links-row">
               {% if post.paperpdf %}
                 {% assign pdf_link = post.paperpdf %}
@@ -117,11 +117,17 @@
                     {% assign pdf_link = pdf_link | prepend: "/static/file/" | prepend: base_path %}
                   {% endif %}
                 {% endunless %}
-                <a href="{{ pdf_link }}" target="_blank" class="archive__item-paper-link">[Full paper]</a>
-              {% elsif post.paperurl %}
-                <a href="{{ post.paperurl }}" target="_blank" class="archive__item-paper-link">[Full paper]</a>
+                <a href="{{ pdf_link }}" target="_blank" class="archive__item-paper-link">[PDF]</a>
               {% endif %}
-              
+
+              {% if post.paperurl %}
+                <a href="{{ post.paperurl }}" target="_blank" class="archive__item-paper-link">[Paper page]</a>
+              {% endif %}
+
+              {% if post.doi %}
+                <a href="{{ post.doi }}" target="_blank" class="archive__item-paper-link">[DOI]</a>
+              {% endif %}
+               
               {% if post.github %}
                 <a href="{{ post.github }}" target="_blank" class="archive__item-paper-link">[GitHub]</a>
               {% endif %}
